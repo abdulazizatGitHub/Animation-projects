@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fire.css">
+</head>
+<body>
+    <canvas id="canvas"><p></p></canvas>
+    <p style="color: white;">Happy Birthday To you Khore 🎂🎂</p>
+    <h6 id="loveText">Love You Khore</h6>
+    <script src="confetti.js"></script>
+    <script src="fire.js"></script>
+
+    <!-- Text Animation JS -->
+    <script>
+        // TxtType Class Definition
+        var TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+            var that = this;
+            var delta = 300 - Math.random() * 10;
+
+            if (this.isDeleting) { delta /= 2; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 300;
+            }
+
+            setTimeout(function() {
+                that.tick();
+            }, delta);
+        };
+
+        // Start fireworks
+        const startFireworks = () => {
+            setup();
+            const fireworksInterval = setInterval(function() {
+                loop();
+            }, 1000 / 60);
+
+            // Stop fireworks after 12 seconds
+            setTimeout(function() {
+                clearInterval(fireworksInterval);
+            }, 12000); // 12000 is time in milliseconds (12 seconds)
+        };
+
+        // Start confetti
+        const startConfetti = () => {
+            setTimeout(function() {
+                confetti.start();
+            }, 1000); // 1000 is time that after 1 second start the confetti ( 1000 = 1 sec)
+        };
+
+        // Stop confetti
+        const stopConfetti = () => {
+            setTimeout(function() {
+                confetti.stop();
+            }, 12000); // 12000 is time that after 12 seconds stop the confetti (12000 = 12 sec)
+        };
+
+        // Initialize fireworks, confetti, and text animation
+        startFireworks();
+        startConfetti();
+        stopConfetti();
+
+        // Initialize text animation
+        var loveText = document.getElementById('loveText');
+        var textType = new TxtType(loveText, ['Love You Khore'], 2000);
+        textType.tick(); // Start the text animation
+    </script>
+</body>
+</html>

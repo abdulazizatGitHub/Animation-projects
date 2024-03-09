@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+
+p {
+    position: absolute;
+    font-size: 4rem;
+    text-shadow: 0 0 10px;
+    font-weight: 800;
+}
+h6 {
+    position: absolute;
+    font-size: 3rem;
+    text-shadow: 0 0 10px;
+    font-weight: 600;
+    margin-top: 10rem;
+    background: linear-gradient(to right, #ed213a, #93291e); 
+    -webkit-background-clip: text; /* WebKit/Blink browsers */
+    background-clip: text; /* Standard syntax */
+    color: transparent; /* Hide original text color */
+}
+
+
+@media (max-width: 768px) {
+    p {
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+    }
+}
